@@ -17,17 +17,21 @@ create table public.registrations (
 );
 
 -- Optional: Set up Row Level Security (RLS)
--- This ensures that only authorized access is allowed.
--- If you are using the SUPABASE_SERVICE_ROLE_KEY in your backend, 
--- you do not need to allow public inserts. The service role bypasses RLS.
 alter table public.registrations enable row level security;
 
--- If you want to view the data in the Supabase dashboard but not allow public read/write:
+-- Allow authenticated users (you) to view the data in the dashboard
 create policy "Allow authenticated users to read"
 on public.registrations
 for select
 to authenticated
 using (true);
+
+-- Allow public to insert new registrations
+create policy "Allow public inserts"
+on public.registrations
+for insert
+to public
+with check (true);
 
 -- Create an index on email and mobile for faster lookups
 create index if not exists idx_registrations_email on public.registrations (email_address);
