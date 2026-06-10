@@ -1,4 +1,11 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Initialize Cleave.js for Date of Birth (DD/MM/YYYY)
+    new Cleave('#dob', {
+        date: true,
+        delimiter: '/',
+        datePattern: ['d', 'm', 'Y']
+    });
+
     const form = document.getElementById('registration-form');
     const formCard = document.getElementById('form-card');
     const successCard = document.getElementById('success-card');
@@ -19,12 +26,18 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Collect form data
             const formData = new FormData(form);
+            
+            // Convert DD/MM/YYYY to YYYY-MM-DD for the backend
+            const dobRaw = formData.get('dob') || '';
+            const dobParts = dobRaw.split('/');
+            const formattedDob = dobParts.length === 3 ? `${dobParts[2]}-${dobParts[1]}-${dobParts[0]}` : '';
+
             const payload = {
                 fullName: formData.get('fullName'),
                 fatherName: formData.get('fatherName'),
                 mobile: formData.get('mobile'),
                 email: formData.get('email'),
-                age: formData.get('age'),
+                dob: formattedDob,
                 city: formData.get('city'),
                 shortAddress: formData.get('shortAddress'),
                 skillLevel: formData.get('skillLevel'),

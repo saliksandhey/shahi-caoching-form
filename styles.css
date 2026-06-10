@@ -60,7 +60,9 @@ h1, h2, h3, .logo-text {
 /* Left Panel */
 .brand-panel {
     flex: 0 0 45%;
-    position: relative;
+    position: sticky;
+    top: 0;
+    height: 100vh;
     background-color: var(--bg-dark);
     color: white;
     padding: 4rem;
@@ -645,6 +647,8 @@ select:focus {
     }
     
     .brand-panel {
+        position: relative;
+        height: auto;
         padding: 3rem 1.5rem 5rem 1.5rem;
         min-height: auto;
         display: block;

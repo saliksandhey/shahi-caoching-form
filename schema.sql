@@ -8,7 +8,7 @@ create table public.registrations (
     father_name text not null,
     mobile_number text not null,
     email_address text,
-    age integer not null,
+    date_of_birth date not null,
     city text not null,
     short_address text not null,
     skill_level text not null,

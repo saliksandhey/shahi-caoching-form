@@ -38,7 +38,7 @@ app.post('/api/register', async (req, res) => {
             fatherName,
             mobile,
             email,
-            age,
+            dob,
             city,
             shortAddress,
             skillLevel,
@@ -46,7 +46,7 @@ app.post('/api/register', async (req, res) => {
         } = req.body;
 
         // 1. Validate required fields
-        if (!fullName || !fatherName || !mobile || !age || !city || !shortAddress || !skillLevel) {
+        if (!fullName || !fatherName || !mobile || !dob || !city || !shortAddress || !skillLevel) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -61,7 +61,7 @@ app.post('/api/register', async (req, res) => {
                     father_name: fatherName,
                     mobile_number: mobile,
                     email_address: email || null,
-                    age: parseInt(age),
+                    date_of_birth: dob,
                     city: city,
                     short_address: shortAddress,
                     skill_level: skillLevel,
@@ -82,14 +82,14 @@ app.post('/api/register', async (req, res) => {
                     <h2 style="color: #ffffff; margin: 0; font-family: 'Playfair Display', serif; font-size: 24px; font-weight: 500;">New Enrollment Received</h2>
                 </div>
                 <div style="padding: 40px; background: #ffffff;">
-                    <p style="color: #6b7280; font-size: 16px; margin-bottom: 24px;">A new student has registered for Shahi Coaching.</p>
+                    <p style="color: #6b7280; font-size: 16px; margin-bottom: 24px;">A new student has registered for Shahi Academy.</p>
                     
                     <table style="width: 100%; border-collapse: collapse; margin-bottom: 30px;">
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af; width: 40%;">Full Name</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${fullName}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Father's Name</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${fatherName}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Mobile Number</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${mobile}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Email</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${email || 'N/A'}</td></tr>
-                        <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Age</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${age}</td></tr>
+                        <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Date of Birth</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${dob}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">City / Address</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${city}, ${shortAddress}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Skill Level</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${skillLevel}</td></tr>
                     </table>
@@ -103,9 +103,9 @@ app.post('/api/register', async (req, res) => {
 
         try {
             await transporter.sendMail({
-                from: '"Shahi Coaching System" <shahicoaching@gmail.com>',
+                from: '"Shahi Academy System" <shahicoaching@gmail.com>',
                 to: 'shahicoaching@gmail.com',
-                subject: 'New Student Registration - Shahi Coaching',
+                subject: 'New Student Registration - Shahi Academy',
                 html: ownerEmailHtml
             });
             console.log('Owner notification email sent successfully.');
@@ -118,7 +118,7 @@ app.post('/api/register', async (req, res) => {
             const studentEmailHtml = `
                 <div style="font-family: 'Inter', Arial, sans-serif; max-width: 600px; margin: 0 auto; background: #ffffff; border-radius: 12px; overflow: hidden; border: 1px solid #e5e7eb; box-shadow: 0 10px 25px rgba(0,0,0,0.05);">
                     <div style="background: #0f0c1b; padding: 40px; text-align: center;">
-                        <h1 style="color: #ffffff; margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500;">Welcome to Shahi Coaching</h1>
+                        <h1 style="color: #ffffff; margin: 0; font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500;">Welcome to Shahi Academy</h1>
                     </div>
                     <div style="padding: 40px;">
                         <p style="color: #111827; font-size: 18px; margin-bottom: 16px;">Dear ${fullName},</p>
@@ -132,16 +132,16 @@ app.post('/api/register', async (req, res) => {
                         <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">We look forward to guiding you on this professional journey.</p>
                         <br/>
                         <p style="color: #111827; font-size: 16px; margin: 0; font-weight: 600;">Warm Regards,</p>
-                        <p style="color: #8a4fff; font-size: 16px; margin-top: 4px; font-family: 'Playfair Display', serif; font-weight: 600; font-style: italic;">Shahi Coaching Institute</p>
+                        <p style="color: #8a4fff; font-size: 16px; margin-top: 4px; font-family: 'Playfair Display', serif; font-weight: 600; font-style: italic;">Shahi Academy Institute</p>
                     </div>
                 </div>
             `;
 
             try {
                 await transporter.sendMail({
-                    from: '"Shahi Coaching" <shahicoaching@gmail.com>',
+                    from: '"Shahi Academy" <shahicoaching@gmail.com>',
                     to: email,
-                    subject: 'Welcome to Shahi Coaching',
+                    subject: 'Welcome to Shahi Academy',
                     html: studentEmailHtml
                 });
                 console.log('Student welcome email sent successfully to', email);
