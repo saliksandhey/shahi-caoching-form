@@ -12,7 +12,6 @@ create table public.registrations (
     city text not null,
     short_address text not null,
     skill_level text not null,
-    skills_to_learn text[] not null, -- Stores the array of selected skills
     additional_notes text,
     created_at timestamp with time zone default timezone('utc'::text, now()) not null
 );

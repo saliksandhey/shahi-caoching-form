@@ -2,8 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const form = document.getElementById('registration-form');
     const formCard = document.getElementById('form-card');
     const successCard = document.getElementById('success-card');
-    const checkboxes = document.querySelectorAll('input[name="skills"]');
-    const skillsError = document.getElementById('skills-error');
 
     // Handle form submission
     form.addEventListener('submit', async (e) => {
@@ -21,11 +19,6 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Collect form data
             const formData = new FormData(form);
-            const skillsArray = [];
-            checkboxes.forEach(cb => {
-                if (cb.checked) skillsArray.push(cb.value);
-            });
-
             const payload = {
                 fullName: formData.get('fullName'),
                 fatherName: formData.get('fatherName'),
@@ -35,7 +28,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 city: formData.get('city'),
                 shortAddress: formData.get('shortAddress'),
                 skillLevel: formData.get('skillLevel'),
-                skills: skillsArray,
                 notes: formData.get('notes')
             };
 
@@ -110,16 +102,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Checkbox validation (at least one must be selected)
-        let isChecked = false;
-        checkboxes.forEach(cb => {
-            if (cb.checked) isChecked = true;
-        });
-        
-        if (!isChecked) {
-            skillsError.style.display = 'block';
-            isValid = false;
-        }
 
         return isValid;
     }

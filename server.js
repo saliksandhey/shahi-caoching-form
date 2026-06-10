@@ -42,12 +42,11 @@ app.post('/api/register', async (req, res) => {
             city,
             shortAddress,
             skillLevel,
-            skills,
             notes
         } = req.body;
 
         // 1. Validate required fields
-        if (!fullName || !fatherName || !mobile || !age || !city || !shortAddress || !skillLevel || !skills || skills.length === 0) {
+        if (!fullName || !fatherName || !mobile || !age || !city || !shortAddress || !skillLevel) {
             return res.status(400).json({ error: 'Missing required fields' });
         }
 
@@ -66,7 +65,6 @@ app.post('/api/register', async (req, res) => {
                     city: city,
                     short_address: shortAddress,
                     skill_level: skillLevel,
-                    skills_to_learn: skills,
                     additional_notes: notes || null,
                     // Registration Date is usually handled by Supabase default 'created_at' column
                 }
@@ -94,7 +92,6 @@ app.post('/api/register', async (req, res) => {
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Age</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${age}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">City / Address</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${city}, ${shortAddress}</td></tr>
                         <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Skill Level</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #111827; font-weight: 500;">${skillLevel}</td></tr>
-                        <tr><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #9ca3af;">Interests</td><td style="padding: 12px 0; border-bottom: 1px solid #f3f4f6; color: #8a4fff; font-weight: 500;">${skills.join(', ')}</td></tr>
                     </table>
                     
                     <div style="background: #f9fafb; padding: 20px; border-radius: 8px; border-left: 4px solid #8a4fff;">
@@ -129,7 +126,7 @@ app.post('/api/register', async (req, res) => {
                         
                         <div style="background: #f9fafb; border-radius: 12px; padding: 24px; margin-bottom: 32px; text-align: center;">
                             <h3 style="color: #8a4fff; margin-top: 0; margin-bottom: 12px; font-weight: 600;">What Happens Next?</h3>
-                            <p style="color: #6b7280; font-size: 15px; margin: 0; line-height: 1.5;">Our team is currently reviewing your profile and selected interests. We will contact you shortly regarding class schedules, batch timings, and the beginning of your training.</p>
+                            <p style="color: #6b7280; font-size: 15px; margin: 0; line-height: 1.5;">Our team is currently reviewing your profile. We will contact you shortly regarding class schedules, batch timings, and the beginning of your training.</p>
                         </div>
                         
                         <p style="color: #6b7280; font-size: 16px; line-height: 1.6;">We look forward to guiding you on this professional journey.</p>
