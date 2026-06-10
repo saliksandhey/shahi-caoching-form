@@ -81,7 +81,7 @@ app.post('/api/register', async (req, res) => {
 
         if (dbError) {
             console.error('Supabase Error:', dbError);
-            return res.status(500).json({ error: 'Failed to save registration data.' });
+            return res.status(500).json({ error: 'Failed to save registration data. DB Error: ' + (dbError.message || JSON.stringify(dbError)) });
         }
 
         // 3. Send Owner Notification Email
