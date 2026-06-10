@@ -29,8 +29,9 @@ document.addEventListener('DOMContentLoaded', () => {
             
             // Convert DD/MM/YYYY to YYYY-MM-DD for the backend
             const dobRaw = formData.get('dob') || '';
-            const dobParts = dobRaw.split('/');
-            const formattedDob = dobParts.length === 3 ? `${dobParts[2]}-${dobParts[1]}-${dobParts[0]}` : '';
+            const dobClean = dobRaw.replace(/\s+/g, '');
+            const dobParts = dobClean.split('/');
+            const formattedDob = dobParts.length === 3 ? `${dobParts[2]}-${dobParts[1]}-${dobParts[0]}` : dobClean;
 
             const payload = {
                 fullName: formData.get('fullName'),

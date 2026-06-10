@@ -46,8 +46,17 @@ app.post('/api/register', async (req, res) => {
         } = req.body;
 
         // 1. Validate required fields
-        if (!fullName || !fatherName || !mobile || !dob || !city || !shortAddress || !skillLevel) {
-            return res.status(400).json({ error: 'Missing required fields' });
+        const missingFields = [];
+        if (!fullName) missingFields.push('fullName');
+        if (!fatherName) missingFields.push('fatherName');
+        if (!mobile) missingFields.push('mobile');
+        if (!dob) missingFields.push('dob');
+        if (!city) missingFields.push('city');
+        if (!shortAddress) missingFields.push('shortAddress');
+        if (!skillLevel) missingFields.push('skillLevel');
+
+        if (missingFields.length > 0) {
+            return res.status(400).json({ error: 'Missing required fields: ' + missingFields.join(', ') });
         }
 
         // 2. Save to Supabase
